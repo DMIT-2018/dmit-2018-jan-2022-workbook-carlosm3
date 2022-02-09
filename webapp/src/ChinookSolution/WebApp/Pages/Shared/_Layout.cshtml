@@ -7,13 +7,24 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/holiday.css@0.9.8" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebApp.styles.css" asp-append-version="true" />
+    @* 
+        RenderSection is a way of allowing statements/code/tags to be placed 
+        in a certain area of the layout.
+
+        By default this is a required entry on each Content Page. Using required: false
+        makes this an optional entry on any Content Page.
+
+        If the section is used on a Content Page, the the code within the section reference on the Content
+        Page is merged in placed here on the layout page.
+    *@
+    @RenderSection("CustomCSS", required: false)
 </head>
 <body>
     <header>
         <nav>
              <ul>
                 <li>
-                   @* add a logo to the menu taking on to the Home page (Index)*@
+                   @* add a logo to the menu taking on to the Home page (Index) *@
                     <a asp-area="" asp-page="/Index">
                         <img src="~/img/ChinookMusicMenuLogo.jpg" alt="Chinook logo" title="Go to Home" />
                     </a>
@@ -33,6 +44,9 @@
                     <ul>
                         <li>
                             <a asp-area="" asp-page="/SamplePages/Basics">Basics</a>
+                        </li>
+                        <li>
+                            <a asp-area="" asp-page="/SamplePages/Controls">Controls</a>
                         </li>
                     </ul>
                 </li>
