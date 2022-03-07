@@ -1,8 +1,10 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 #region Additional Namespaces
 using Microsoft.Extensions.DependencyInjection;
@@ -15,37 +17,39 @@ namespace ChinookSystem
 {
     public static class ChinookExtensions
     {
-        public static void ChinookSystemBackendDependencies(this IServiceCollection services, Action<DbContextOptionsBuilder> options)
+        public static void ChinookSystemBackendDependencies(this IServiceCollection services,
+            Action<DbContextOptionsBuilder> options)
         {
-            // Register the DbContext class in Chinook with the service collection
+            //register the DbContext class in Chinook with the service collection
             services.AddDbContext<ChinookContext>(options);
 
-            // Add any services that you can create in the class library
-            // using .AddTransient<T>(...)
-
-            // About Services
+            //add any services that you create in the class library
+            //  using .AddTransient<T>(...)
             services.AddTransient<AboutServices>((serviceProvider) =>
             {
-                var context = serviceProvider.GetService<ChinookContext>();
-                // Create an instance of the service and return instance
+                var context = serviceProvider.GetRequiredService<ChinookContext>();
+                //create an instance of the service and return the instance
                 return new AboutServices(context);
             });
-
-            // Genre Services
             services.AddTransient<GenreServices>((serviceProvider) =>
             {
-                var context = serviceProvider.GetService<ChinookContext>();
-                // Create an instance of the service and return instance
+                var context = serviceProvider.GetRequiredService<ChinookContext>();
+                //create an instance of the service and return the instance
                 return new GenreServices(context);
             });
-
-            // Album Services
             services.AddTransient<AlbumServices>((serviceProvider) =>
             {
-                var context = serviceProvider.GetService<ChinookContext>();
-                // Create an instance of the service and return instance
+                var context = serviceProvider.GetRequiredService<ChinookContext>();
+                //create an instance of the service and return the instance
                 return new AlbumServices(context);
             });
+            services.AddTransient<ArtistServices>((serviceProvider) =>
+            {
+                var context = serviceProvider.GetRequiredService<ChinookContext>();
+                //create an instance of the service and return the instance
+                return new ArtistServices(context);
+            });
+
         }
     }
 }
